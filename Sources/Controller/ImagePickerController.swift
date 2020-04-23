@@ -24,15 +24,18 @@ import UIKit
 import Photos
 
 
-fileprivate let localizedDone = Bundle(identifier: "com.apple.UIKit")?.localizedString(forKey: "Done", value: "Done", table: "") ?? "Done"
+fileprivate let localizedDone = "Done"
+fileprivate let localizedCancel = "Cancel"
 
 // MARK: ImagePickerController
 @objcMembers open class ImagePickerController: UINavigationController {
     // MARK: Public properties
+    public var doneTitle = "送る"
+    public var cancelTitle = "キャンセル"
     public weak var imagePickerDelegate: ImagePickerControllerDelegate?
     public var settings: Settings = Settings()
     public var doneButton: UIBarButtonItem = UIBarButtonItem(title: localizedDone, style: .done, target: nil, action: nil)
-    public var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
+    public var cancelButton: UIBarButtonItem = UIBarButtonItem(title: localizedCancel, style: .cancel, target: nil, action: nil)
     public var albumButton: UIButton = UIButton(type: .custom)
     public var selectedAssets: [PHAsset] {
         get {
@@ -84,6 +87,8 @@ fileprivate let localizedDone = Bundle(identifier: "com.apple.UIKit")?.localized
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        localizedDone = doneTitle
+        localizedCancel = cancelTitle
 
         if #available(iOS 13.0, *) {
             // Disables iOS 13 swipe to dismiss - to force user to press cancel or done.
@@ -121,7 +126,7 @@ fileprivate let localizedDone = Bundle(identifier: "com.apple.UIKit")?.localized
         albumButton.semanticContentAttribute = .forceRightToLeft // To set image to the right without having to calculate insets/constraints.
         albumButton.addTarget(self, action: #selector(ImagePickerController.albumsButtonPressed(_:)), for: .touchUpInside)
         firstViewController?.navigationItem.titleView = albumButton
-
+        
         doneButton.target = self
         doneButton.action = #selector(doneButtonPressed(_:))
         firstViewController?.navigationItem.rightBarButtonItem = doneButton
@@ -144,7 +149,7 @@ fileprivate let localizedDone = Bundle(identifier: "com.apple.UIKit")?.localized
     }
 
     func updatedDoneButton() {
-        doneButton.title = assetStore.count > 0 ? localizedDone + " (\(assetStore.count))" : localizedDone
+        doneButton.title = localizedDone
       
         doneButton.isEnabled = assetStore.count >= settings.selection.min
     }
