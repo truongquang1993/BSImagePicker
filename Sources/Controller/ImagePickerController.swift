@@ -35,7 +35,7 @@ fileprivate var localizedCancel = "キャンセル"
     public weak var imagePickerDelegate: ImagePickerControllerDelegate?
     public var settings: Settings = Settings()
     public var doneButton: UIBarButtonItem = UIBarButtonItem(title: localizedDone, style: .done, target: nil, action: nil)
-    public var cancelButton: UIBarButtonItem = UIBarButtonItem(title: localizedCancel, style: .done, target: nil, action: nil)
+    public var cancelButton: UIBarButtonItem = UIBarButtonItem(title: localizedCancel, style: .plain, target: nil, action: nil)
     public var albumButton: UIButton = UIButton(type: .custom)
     public var selectedAssets: [PHAsset] {
         get {
