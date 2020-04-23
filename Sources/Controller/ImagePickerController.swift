@@ -24,8 +24,8 @@ import UIKit
 import Photos
 
 
-fileprivate let localizedDone = "Done"
-fileprivate let localizedCancel = "Cancel"
+fileprivate var localizedDone = "Done"
+fileprivate var localizedCancel = "Cancel"
 
 // MARK: ImagePickerController
 @objcMembers open class ImagePickerController: UINavigationController {
